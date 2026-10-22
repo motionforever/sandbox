@@ -2,18 +2,26 @@
   "permissions": {
     "defaultMode": "default",
     "disableBypassPermissionsMode": "disable",
-    "ask": ["Bash(rm *)", "Bash(git push *)"]
+    "ask": [
+      "Bash(rm *)",
+      "Bash(git push *)"
+    ]
   },
   "sandbox": {
     "enabled": true,
     "allowUnsandboxedCommands": false,
     "failIfUnavailable": true,
     "filesystem": {
-      "allowWrite": ["~/.cache/uv"],
-      "denyRead": ["~/.ssh", "~/.aws", "~/.config/gcloud"]
+      "allowWrite": [
+        "~/.cache/uv"
+      ]
     },
     "network": {
-      "allowedDomains": ["pypi.org", "files.pythonhosted.org", "github.com"]
+      "allowedDomains": [
+        "pypi.org",
+        "files.pythonhosted.org",
+        "github.com"
+      ]
     }
   }
 }

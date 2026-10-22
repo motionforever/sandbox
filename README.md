@@ -14,8 +14,9 @@ pyproject.toml / uv.lock          dependencies (numpy, pandas, scipy, statsmodel
 .python-version                   Python 3.13
 src/quantlab/                     your code (example: metrics.py)
 tests/                            pytest tests
-.claude/settings.json             project settings: SessionStart hook + permission rules
+.claude/settings.json             project settings: hooks + permission rules
 .claude/hooks/session-start.sh    cloud only: runs `uv sync` and puts .venv on PATH
+.claude/hooks/block-writes-outside-project.py  local only: Claude's file tools can't write outside this repo
 scripts/setup-mac.sh              one-time local setup on macOS
 docs/claude-user-settings.mac.json  suggested ~/.claude/settings.json for your Mac
 ```
@@ -33,7 +34,7 @@ Docs: https://code.claude.com/docs/en/cloud-environments
 1. Install uv: `brew install uv` (or see https://docs.astral.sh/uv/getting-started/installation/).
 2. Clone into a folder that is **not** synced to a cloud drive, e.g.:
    ```bash
-   mkdir -p ~/code && cd ~/code
+   mkdir -p ~/Developer && cd ~/Developer
    git clone https://github.com/motionforever/sandbox.git && cd sandbox
    ```
 3. Run `./scripts/setup-mac.sh`. It refuses to run inside iCloud/Dropbox/OneDrive/Google Drive
@@ -42,8 +43,20 @@ Docs: https://code.claude.com/docs/en/cloud-environments
 4. Merge `docs/claude-user-settings.mac.json` into `~/.claude/settings.json`. It turns on the
    Bash sandbox in strict mode (no unsandboxed retries, fail if the sandbox can't start),
    disables `bypassPermissions`, asks before `rm` / `git push`, lets sandboxed commands write
-   only to the repo plus uv's cache, blocks reads of `~/.ssh` / `~/.aws`, and allows network
-   only to PyPI and GitHub. Then start `claude` in the repo and run `/sandbox` to confirm it is active.
+   only to the repo plus uv's cache, and allows network only to PyPI and GitHub.
+   Then start `claude` in the repo and run `/sandbox` to confirm it is active.
+
+### Write boundary
+
+Two paths can write files, and each has its own guard:
+
+| Path | Guard |
+| --- | --- |
+| Shell commands (`rm`, `mv`, `python script.py`, ...) | Bash sandbox (OS-enforced): repo, temp dir, `~/.cache/uv` only |
+| Claude's Edit/Write/NotebookEdit tools (run outside the sandbox) | `block-writes-outside-project.py` PreToolUse hook: repo and temp dir only |
+
+Always start `claude` from inside the repo (`cds && claude`), never from `~/Developer`:
+the boundary is the directory you launch from.
 
 Docs: https://code.claude.com/docs/en/sandboxing ·
 https://code.claude.com/docs/en/permission-modes

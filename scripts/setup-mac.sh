@@ -10,7 +10,7 @@ repo_dir="$(pwd -P)"
 case "$repo_dir" in
   *"/Library/CloudStorage/"*|*"/Library/Mobile Documents/"*|*"/Dropbox"*|*"/OneDrive"*|*"/Google Drive"*|*"/iCloud"*)
     echo "This repo is inside a cloud-synced folder: $repo_dir"
-    echo "Clone it somewhere unsynced instead, e.g. ~/code/sandbox, and run this script there."
+    echo "Clone it somewhere unsynced instead, e.g. ~/Developer/sandbox, and run this script there."
     exit 1
     ;;
 esac
