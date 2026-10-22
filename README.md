@@ -56,6 +56,14 @@ Two paths can write files, and each has its own guard:
 | Claude's Edit/Write/NotebookEdit tools (run outside the sandbox) | `block-writes-outside-project.py` PreToolUse hook: repo and temp dir only |
 | Same file tools, second layer | Built-in `deny` rules in `.claude/settings.json` for cloud-synced folders (`~/Dropbox`, `~/Library/CloudStorage`, iCloud Drive), in case the hook ever fails |
 
+### Network
+
+`.claude/settings.json` adds Yahoo Finance hosts to the sandbox allowlist for this project only
+(they merge with the PyPI/GitHub entries in your user settings), so Claude can run `yfinance`.
+Hosts are the ones the yfinance package itself calls: `finance.yahoo.com`, `query1`/`query2`/`streamer`
+under `*.finance.yahoo.com`, plus `fc`, `guce` and `consent.yahoo.com` for the cookie/consent flow.
+Cloud sessions don't use these: add the same hosts under the cloud environment's **Custom** network access.
+
 Always start `claude` from inside the repo (`cds && claude`), never from `~/Developer`:
 the boundary is the directory you launch from.
 

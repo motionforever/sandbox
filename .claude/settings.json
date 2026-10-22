@@ -35,5 +35,16 @@
       "Edit(~/Library/CloudStorage/**)",
       "Edit(~/Library/Mobile Documents/**)"
     ]
+  },
+  "sandbox": {
+    "network": {
+      "allowedDomains": [
+        "finance.yahoo.com",
+        "*.finance.yahoo.com",
+        "fc.yahoo.com",
+        "guce.yahoo.com",
+        "consent.yahoo.com"
+      ]
+    }
   }
 }
