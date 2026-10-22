@@ -17,7 +17,7 @@ esac
 case "$repo_dir" in
   "$HOME/Desktop"*|"$HOME/Documents"*)
     echo "Warning: $repo_dir is under Desktop/Documents, which iCloud Drive may sync."
-    echo "If 'Desktop & Documents Folders' is on in iCloud settings, move the repo to ~/code first."
+    echo "If 'Desktop & Documents Folders' is on in iCloud settings, move the repo to ~/Developer first."
     read -r -p "Continue anyway? [y/N] " answer
     [[ "$answer" =~ ^[Yy]$ ]] || exit 1
     ;;
