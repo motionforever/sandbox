@@ -23,7 +23,17 @@
     ]
   },
   "permissions": {
-    "ask": ["Bash(rm *)", "Bash(git push *)"],
-    "deny": ["Read(./.env)", "Read(./.env.*)", "Read(./data/private/**)"]
+    "ask": [
+      "Bash(rm *)",
+      "Bash(git push *)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./data/private/**)",
+      "Edit(~/Dropbox/**)",
+      "Edit(~/Library/CloudStorage/**)",
+      "Edit(~/Library/Mobile Documents/**)"
+    ]
   }
 }

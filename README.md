@@ -54,6 +54,7 @@ Two paths can write files, and each has its own guard:
 | --- | --- |
 | Shell commands (`rm`, `mv`, `python script.py`, ...) | Bash sandbox (OS-enforced): repo, temp dir, `~/.cache/uv` only |
 | Claude's Edit/Write/NotebookEdit tools (run outside the sandbox) | `block-writes-outside-project.py` PreToolUse hook: repo and temp dir only |
+| Same file tools, second layer | Built-in `deny` rules in `.claude/settings.json` for cloud-synced folders (`~/Dropbox`, `~/Library/CloudStorage`, iCloud Drive), in case the hook ever fails |
 
 Always start `claude` from inside the repo (`cds && claude`), never from `~/Developer`:
 the boundary is the directory you launch from.
